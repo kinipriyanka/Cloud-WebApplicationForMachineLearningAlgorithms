@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2> Images to Process:</h2>
+<div class = "row">
+{% if codes %}
+<ul>
+	{% for code in codes %}
+	<div class = "column">
+		<a href="{{url_for('about')}}" target="_blank">
+			<img src="{{ url_for('redirect_to_image', code=code)}}"/>
+		</a>
+		<li>{{ code }}</li>
+	</div>
+	{% endfor %}
+</ul>
+{% endif %}
+</div>
+
+{% endblock %}

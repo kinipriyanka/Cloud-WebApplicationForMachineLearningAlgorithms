@@ -1,0 +1,27 @@
+.button-group {
+
+  padding: 1em 1%;
+  margin-bottom: 1em;
+  text-align:center;
+}
+
+.button {
+  padding: 0.5em;
+  margin-right: 1em;
+}
+
+.play-area-sub {
+    width:100%
+    padding: 1em 1%;
+    text-align: center;
+}
+
+#capture {
+    display: none;
+}
+
+#snapshot {
+    display: inline-block;
+    width: 320px;
+    height: 240px;
+}

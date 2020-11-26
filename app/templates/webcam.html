@@ -1,0 +1,30 @@
+<video id="streaming" controls autoplay width="320" height="240"></video><br><br>
+<button id="capture" style="width:100px;height:50px">CAPTURE!</button>&nbsp;
+<a href="#" id="download_img" download="image.png">DOWNLOAD!</a><br>
+<canvas id="snapshot" width=320 height=240></canvas><br>
+<script>
+  var streaming = document.getElementById('streaming'); 
+  var shots = document.getElementById('snapshot');
+  var btn_capture = document.getElementById('capture');
+  var download = document.getElementById('download_img');
+  var tracks;
+
+  var v_running = function(stream) {
+    streaming.srcObject = stream;
+    tracks = stream.getVideoTracks();
+  };
+  
+  download.addEventListener('click', function() {
+    document.getElementById("download_img").href = document.getElementById("snapshot").toDataURL("image/png").replace(/^data:image\/[^;]/, 'data:application/octet-stream');
+  });
+  
+  btn_capture.addEventListener('click', function() {
+    var context = snapshot.getContext('2d');
+    context.drawImage(streaming, 0, 0, shots.width, shots.height);
+	
+    //videoTracks.forEach(function(track) {track.stop()});
+  });
+
+  navigator.mediaDevices.getUserMedia({video: true})
+      .then(v_running);
+</script>

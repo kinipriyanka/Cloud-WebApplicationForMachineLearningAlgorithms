@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="topnav" id="myTopnav">
+    <a href="{{url_for('index')}}">
+    <img src="{{url_for('static',filename='images/logo_green.png')}}" alt="Conjugate" style="margin-left:5vh;width:10vh;height:8vh;">
+    </a>
+    <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+    <i class="fa fa-bars"></i>
+    </a>
+</div>
+<br>
+<div class="container" style="text-align:center;">
+    <img id="scream" src="{{url_for('redirect_to_image', code=code)}}" alt="image not found"
+      style="display:none;">
+    <canvas id="myCanvas"  style="border:1px solid #d3d3d3;width:150vh;height:80vh;" ></canvas>
+</div>
+
+<script>
+    window.onload = function() {
+          var c = document.getElementById("myCanvas");
+          var ctx = c.getContext("2d");
+          var img = document.getElementById("scream");
+          c.height= img.height;
+          c.width = img.width;
+          ctx.drawImage(img,0,0);
+          ctx.lineWidth = "16";
+          ctx.strokeStyle = "blue";
+          var points = {{points}}
+          var j;
+          ctx.beginPath();
+
+          for(j=0;j<points.length;j+=8) {
+                ctx.moveTo(points[j+0],points[j+1]);
+                ctx.lineTo(points[j+2],points[j+3]);
+                ctx.lineTo(points[j+4],points[j+5]);
+                ctx.lineTo(points[j+6],points[j+7]);
+                ctx.lineTo(points[j+0],points[j+1]);
+                ctx.stroke();
+          }
+
+      }
+</script>,
+{% endblock %}

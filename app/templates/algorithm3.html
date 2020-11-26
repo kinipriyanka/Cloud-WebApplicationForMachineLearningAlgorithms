@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="topnav" id="myTopnav">
+    <a href="{{url_for('index')}}">
+    <img src="{{url_for('static',filename='images/logo_green.png')}}" alt="Conjugate" style="margin-left:5vh;width:10vh;height:8vh;">
+    </a>
+    <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+    <i class="fa fa-bars"></i>
+    </a>
+</div>
+<div class="container">
+    <br><br>
+    <table>
+        <tbody>
+            <tr>
+                <td style="padding:2vh;">
+                    <img id="scream" src="{{url_for('redirect_to_image', code=code)}}" alt="image not found"
+                    style="display:none;">
+                     <canvas id="myCanvas"  style="border:1px solid #d3d3d3;width:100vh;height:80vh;" ></canvas>
+                </td>
+                <td style="padding:2vh;">
+                    <table>
+                        <thead>
+                            <tr>
+                                <td style="padding:2vh;text-align:center;"><strong>Lable</strong></td>
+                                <td style="padding:2vh;text-align:center;"><strong>Prediction</strong></td>
+                                <td style="padding:2vh;text-align:center;"><strong>Score</strong></td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for object_ in objects %}
+                            <tr>
+                                <td style="padding:2vh;">{{object_.name}} </td>
+                                <td style="padding:2vh;"><input type="range" min="0" max="100" value="{{object_.score*100}}" style="width:30vh"> </td>
+                                <td style="padding:2vh;">{{object_.score}}</td>
+                            </tr>
+                       {% endfor %}
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+
+</div>
+
+<script>
+    window.onload = function() {
+          var c = document.getElementById("myCanvas");
+          var ctx = c.getContext("2d");
+          var img = document.getElementById("scream");
+          c.height= img.height;
+          c.width = img.width;
+          ctx.drawImage(img,0,0);
+          ctx.lineWidth = "12";
+          ctx.strokeStyle = "blue";
+          var points = {{points}}
+          var j;
+          ctx.beginPath();
+            ctx.font = "20px Georgia";
+          for(j=0;j<points.length;j+=8) {
+
+                ctx.moveTo(points[j+0]*c.width,points[j+1]*c.height);
+                ctx.lineTo(points[j+2]*c.width,points[j+3]*c.height);
+                ctx.lineTo(points[j+4]*c.width,points[j+5]*c.height);
+                ctx.lineTo(points[j+6]*c.width,points[j+7]*c.height);
+                ctx.lineTo(points[j+0]*c.width,points[j+1]*c.height);
+                ctx.stroke();
+          }
+
+      }
+</script>,
+{% endblock %}

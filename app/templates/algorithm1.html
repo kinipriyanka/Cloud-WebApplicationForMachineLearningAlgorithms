@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="topnav" id="myTopnav">
+    <a href="{{url_for('index')}}">
+    <img src="{{url_for('static',filename='images/logo_green.png')}}" alt="Conjugate" style="margin-left:5vh;width:10vh;height:8vh;">
+    </a>
+    <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+    <i class="fa fa-bars"></i>
+    </a>
+</div>
+<br>
+<div class="container" style="text-align:center;">
+    <table style="margin: 0px auto;">
+        <tbody>
+        <tr>
+            <td style="padding:3vh;">
+                <img id="scream" src="{{url_for('redirect_to_image', code=code)}}" alt="image not found"
+			    style="width:75vh;height:75vh;border:solid gray 1px;">
+            </td>
+            <td style="padding:3vh;">
+                <h3>Labels for the Image</h3>
+                {% for label in labels %}
+                <ul>
+                    <li>
+                        {{label.description}}
+                    </li>
+                </ul>
+                {% endfor %}
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+
+</div>
+{% endblock %}

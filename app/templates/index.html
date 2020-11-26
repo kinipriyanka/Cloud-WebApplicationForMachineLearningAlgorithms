@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="header">
+    <nav class="navigation">
+      <a href="{{url_for('index')}}" class="navbar-logo">
+        <img src="{{url_for('static',filename='images/logo_green.png')}}" alt="Conjugate" style="width:15vh;height:13vh;">
+      </a>
+      <div class="navbar-right">
+        <a href="{{url_for('index')}}">Home</a>
+        <a href="{{url_for('about')}}">About</a>
+        <a href="#contact">Contact</a>
+
+
+      </div>
+    </nav>
+  <div class="section">
+      <h1>Welcome to Conjugate</h1>
+      <div class="video-container">
+        <div class="video-overlay"></div>
+          <video loop muted autoplay poster="{{ url_for('static',filename='images/background.jpg') }}">
+            <source src="{{ url_for('static',filename='images/mci12.mp4') }}" type="video/mp4">
+            <source src="{{ url_for('static',filename='images/mci12.webm') }}" type="video/webm">
+            <source src="{{ url_for('static',filename='images/mci12.ogv') }}" type="video/ogg">
+          </video>
+      </div>
+  </div>
+</div>
+
+<br> <br>
+<!--Read more: https://html.com/tags/comment-tag/#ixzz6KWGOo3eN-->
+<div class="container" style="background-color:#9ddde0;">
+    {% if error %}
+    <br>
+        <div class="alert alert-danger">
+            <strong>Error:</strong> {{code}} is already used. {{error}}
+        </div>
+    {% endif %}
+    <div class = "upload_image" style="margin-top:3vh">
+      <form action="your-file" method="post" enctype="multipart/form-data" id="myForm">
+          <label for="code" >Image Name</label>
+            <input class="form-control" type="text" name="code" value="" required >
+          <br><br>
+          <div class="custom-file">
+              <label class="custom-file-label" for="file" >Upload Image</label>
+            <input type="file" name="file" value="" accept="image/*" class="custom-file-input" id="customFile">
+          </div>
+          <br><br>
+          <div class="button-group" style="text-align:center;">
+            <button id="btn-stop" type="button" class="btn btn-warning">
+                <a href="{{url_for('webcam')}}" style="color:white;">Capture Image</a>
+            </button>
+          </div>
+<!--          &lt;!&ndash;capture image&ndash;&gt;-->
+<!--          &lt;!&ndash; The buttons to control the stream &ndash;&gt;-->
+<!--          <div class="button-group">-->
+<!--            <button id="btn-start" type="button" class="btn btn-Info">Start Recording</button>-->
+<!--              <button id="btn-stop" type="button" class="btn btn-danger">Stop Recording</button>-->
+<!--              <button id="btn-capture" type="button" class="btn btn-success">Capture Image</button>-->
+<!--          </div>-->
+
+<!--            &lt;!&ndash; Video Element & Canvas &ndash;&gt;-->
+<!--          <div id="cam-display" style="display:none">-->
+<!--            <div class="play-area" >-->
+<!--              <div class="play-area-sub" id="stream-display" style="display:none">-->
+<!--                <h3>Recording</h3>-->
+<!--                <video id="stream" width="320" height="240"></video>-->
+<!--              </div>-->
+
+<!--              <div class="play-area-sub" id="capture-display" style="display:none">-->
+<!--                <h3><label for="picture">Capture Image</label></h3>-->
+<!--                <canvas id="capture" width="320" height="240"></canvas>-->
+<!--                &lt;!&ndash;           -->
+<!--                <a href="#" id="downloader" download="image.png">DOWNLOAD!</a><br>-->
+<!--                &ndash;&gt;-->
+<!--                <div name="file" id="snapshot" ></div>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+
+          <!-- End of image capturing -->
+          <div class="button-group" style="text-align:center;">
+             <input type="submit" value="Submit" class="btn btn-primary">
+          </div>
+      </form>
+    </div>
+</div>
+
+
+
+<script>
+$(".custom-file-input").on("change", function() {
+  var fileName = $(this).val().split("\\").pop();
+  $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+});
+</script>
+<script src="{{url_for('static', filename='js/captureImage.js')}}"></script>
+{% endblock %}
